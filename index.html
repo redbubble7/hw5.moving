@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <style>
+        #video {
+            position: fixed;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            top: -20vh;
+        }
+
+        h1 {
+            position: relative;
+            top: 50vh;
+            left: 20vw;
+            background-color: white;
+        }
+
+        .video-section {
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
+    <title>浴血任務4首映會</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div id="leading-section" style="width: 100%; height: 200vh; background-color:rgba(0, 0, 0, 0.826)">
+            <h1>浴血任務4首映會</h1>
+        </div>
+
+        <div class="container-fluid video-section"> 
+            <video id="video1" src="https://redbubble7.github.io/js.asset/IMG_6858.mp4" style="position:absolute; z-index:20; width:100%;"></video>
+        </div>
+
+        <div id="middle-section" style="width: 100%; height: 200vh; background-color: rgba(0, 0, 0, 0.826)">
+            <h1>影院內場</h1>
+        </div>
+
+        <div class="container-fluid video-section""> 
+            <video id="video2" src="https://redbubble7.github.io/js.asset/IMG_6863.mp4" style="position:absolute; z-index:20; width:100%;"></video>
+        </div>
+
+        <div id="ending-section" style="width: 100%; height: 100vh; background-color: rgba(0, 0, 0, 0.826)">
+            <h1>圓滿結束</h1>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function() {
+            const video1 = $('#video1').get(0);
+            const video2 = $('#video2').get(0);
+
+            if (!video1 || !video2) {
+                console.error("Video elements not found");
+                return;
+            }
+
+            const maxScroll = $(document).height() - $(window).height();
+
+            $(window).scroll(function() {
+                const currentScrollPosition = $(document).scrollTop();
+
+                // Calculate the progress for video1 based on scroll position
+                if (video1.duration) {
+                    const video1Start = $('#leading-section').offset().top;
+                    const video1End = $('#middle-section').offset().top;
+                    if (currentScrollPosition >= video1Start && currentScrollPosition < video1End) {
+                        const progress = (currentScrollPosition - video1Start) / (video1End - video1Start);
+                        video1.currentTime = video1.duration * progress;
+                        video1.play();
+                    } else {
+                        video1.pause();
+                    }
+                } else {
+                    console.warn("Video1 duration is not available");
+                }
+
+                // Calculate the progress for video2 based on scroll position
+                if (video2.duration) {
+                    const video2Start = $('#middle-section').offset().top;
+                    const video2End = $('#ending-section').offset().top;
+                    if (currentScrollPosition >= video2Start && currentScrollPosition < video2End) {
+                        const progress = (currentScrollPosition - video2Start) / (video2End - video2Start);
+                        video2.currentTime = video2.duration * progress;
+                        video2.play();
+                    } else {
+                        video2.pause();
+                    }
+                } else {
+                    console.warn("Video2 duration is not available");
+                }
+            });
+        });
+    </script>
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+        integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+        crossorigin="anonymous"></script>
+    -->
+</body>
+</html>
